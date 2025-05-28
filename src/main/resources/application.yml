@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+#  config:
+#      import: optional:file:.env[.properties]
+  security:
+    user:
+      name: ${name}
+      password: ${pin}
+  data:
+    mongodb:
+      uri: ${MONGO_URL} 
+      database: event-management
+jwt:
+  secret: ${JWT_SECRET}           
+  expiration: 86400000
+  
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: DEBUG
+
+# Optional: profiles (e.g., dev, prod)
+# spring:
+#   profiles:
+#     active: dev
+
