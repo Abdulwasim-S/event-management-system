@@ -1,11 +1,23 @@
-# Use official OpenJDK as base image
-FROM openjdk:17-jdk-slim
+# ---- Stage 1: Build the application ----
+FROM maven:3.9.6-eclipse-temurin-17 AS builder
 
-# Set app directory inside the container
+# Set working directory
 WORKDIR /app
 
-# Copy the built jar file into the container
-COPY target/event-management-system-0.0.1-SNAPSHOT.jar app.jar
+# Copy everything and build the project
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Run the Spring Boot app
+# ---- Stage 2: Run the application ----
+FROM eclipse-temurin:17-jdk-jammy
+
+WORKDIR /app
+
+# Copy jar from the build stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose port
+EXPOSE 8080
+
+# Start the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
