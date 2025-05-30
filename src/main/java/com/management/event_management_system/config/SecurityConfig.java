@@ -3,6 +3,7 @@ package com.management.event_management_system.config;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
@@ -47,8 +48,8 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http, CorsConfigurationSource corsSource)
-			throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http,
+			@Qualifier("corsConfigurationSource") CorsConfigurationSource corsSource) throws Exception {
 		http.csrf(csrf -> csrf.disable()).cors(cors -> cors.configurationSource(corsSource))
 				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/public/**", "/api/login").permitAll()
 						.anyRequest().authenticated())
