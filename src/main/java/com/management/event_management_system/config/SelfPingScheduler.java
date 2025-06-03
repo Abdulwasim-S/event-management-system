@@ -16,7 +16,7 @@ public class SelfPingScheduler {
 	@Scheduled(fixedRate = 300000) // every 10 minutes
 	public void pingSelf() {
 		try {
-			String response = restTemplate.getForObject(pingUrl, String.class);
+			String response = restTemplate.getForObject(pingUrl + "/auth/ping", String.class);
 			System.out.println("Ping URL : " + pingUrl);
 			System.out.println("Self-ping response : " + response);
 		} catch (Exception e) {
