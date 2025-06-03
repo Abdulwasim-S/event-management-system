@@ -13,7 +13,7 @@ public class SelfPingScheduler {
 	@Value("${links.url}")
 	private String pingUrl;
 
-	@Scheduled(fixedRate = 3000) // every 10 minutes
+	@Scheduled(fixedRate = 300000) // every 10 minutes
 	public void pingSelf() {
 		try {
 			String response = restTemplate.getForObject(pingUrl, String.class);
