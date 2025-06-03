@@ -21,7 +21,7 @@ public class AuthController {
 	@Autowired
 	private UserService userService;
 
-	@GetMapping("/start")
+	@GetMapping("/ping")
 	public ResponseEntity<String> startApp() {
 		return ResponseEntity.ok("Server is running");
 	}

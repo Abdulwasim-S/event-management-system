@@ -15,6 +15,9 @@ spring:
 jwt:
   secret: ${JWT_SECRET}           
   expiration: 86400000
+
+links:
+  url: ${app_url}
   
 
 logging:
