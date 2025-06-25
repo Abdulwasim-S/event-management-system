@@ -1,6 +1,5 @@
 package com.management.event_management_system.model;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.Id;
@@ -13,24 +12,20 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "events")
-public class Event {
+@Document(collection = "bookings")
+public class Booking {
 
 	@Id
 	private String id;
 
-	private String title;
-	private String description;
-	private String location;
-	private String imgUrl;
+	private String eventId;
+	private String attendeeName;
+	private String attendeeEmail;
+	private String attendeeId;
 
-	private LocalDateTime startTime;
-	private LocalDateTime endTime;
+	private String paymentId;
+	private String orderId;
+	private String status;
 
-	private String createdBy;
-	private String category;
-	private BigDecimal price;
-
-	private int maxAttendees;
-
+	private LocalDateTime bookedAt = LocalDateTime.now(); // Optional
 }

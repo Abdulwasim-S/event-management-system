@@ -12,9 +12,27 @@ spring:
     mongodb:
       uri: ${MONGO_URL} 
       database: event-management
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: abdulwasimsguvi@gmail.com
+    password: sznlqabfcbernkph
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            
+      
+razorpay:
+  key: ${key}
+  secret: ${key_secret}
+
 jwt:
-  secret: ${JWT_SECRET}           
+  secret: mysecretkeymysecretkeymysecretkeymysecretkey
   expiration: 86400000
+
 
 links:
   url: ${app_url}

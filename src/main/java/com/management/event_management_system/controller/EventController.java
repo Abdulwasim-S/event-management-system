@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.management.event_management_system.dto.EventRequestDTO;
@@ -25,9 +26,12 @@ public class EventController {
 	private EventService eventService;
 
 	@GetMapping("/event")
-	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> eventList() {
-		return eventService.getAllEvents();
+	public ResponseEntity<?> eventList(@RequestParam(name = "page", defaultValue = "0") int page,
+			@RequestParam(name = "size", defaultValue = "5") int size,
+			@RequestParam(name = "name", required = false) String name,
+			@RequestParam(name = "location", required = false) String location,
+			@RequestParam(name = "date", required = false) String date) {
+		return eventService.getFilteredEvents(page, size, name, location, date);
 	}
 
 	@PostMapping("/event")
@@ -44,8 +48,15 @@ public class EventController {
 
 	@DeleteMapping("/event/{id}")
 	@PreAuthorize("hasRole('ADMIN')")
-	public ResponseEntity<?> deleteEvent(@PathVariable String id) {
+	public ResponseEntity<?> deleteEvent(@PathVariable("id") String id) {
 		return eventService.deleteEventById(id);
+	}
+
+	@GetMapping("/{id}")
+
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<?> getEventById(@PathVariable String id) {
+		return eventService.findEventById(id);
 	}
 
 }

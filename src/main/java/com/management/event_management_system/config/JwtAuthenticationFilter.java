@@ -45,6 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 		String token = authorizationHeader.substring(7);
 		try {
+			System.out.println("hi");
 			Claims claims = Jwts.parser().verifyWith(jwtUtil.getSecretKey()).build().parseSignedClaims(token)
 					.getPayload();
 
@@ -55,6 +56,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 					null, userDetails.getAuthorities());
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (JwtException e) {
+			System.out.println(e);
 			sendAccessDeniedResponse(response, "Access Denied: Invalid or expired token");
 			return;
 		}
